@@ -33,14 +33,14 @@
       height: 6px;
     }
     ::-webkit-scrollbar-track {
-      background: #f1f5f9;
+      background: #0f172a;
     }
     ::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
+      background: #334155;
       border-radius: 9999px;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: #94a3b8;
+      background: #475569;
     }
     .custom-line-clamp {
       display: -webkit-box;
@@ -50,10 +50,10 @@
     }
   </style>
 </head>
-<body class="bg-slate-100 min-h-screen text-slate-800 antialiased flex flex-col font-sans">
+<body class="bg-slate-950 min-h-screen text-slate-100 antialiased flex flex-col font-sans selection:bg-blue-600 selection:text-white">
 
   <!-- 頂部浮動訊息通知 (取代 alert) -->
-  <div id="toast" class="fixed top-6 right-6 z-50 transform translate-y-[-120%] opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2 bg-slate-900/90 text-white px-5 py-3 rounded-xl shadow-2xl backdrop-blur-md text-sm border border-slate-700">
+  <div id="toast" class="fixed top-6 right-6 z-50 transform translate-y-[-120%] opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2 bg-slate-900/95 text-white px-5 py-3 rounded-xl shadow-2xl backdrop-blur-md text-sm border border-slate-700">
     <i id="toast-icon" class="fa-solid fa-circle-check text-green-400"></i>
     <span id="toast-msg">已成功複製提示詞！</span>
   </div>
@@ -63,21 +63,21 @@
     
     <!-- 頁頭資訊 -->
     <header class="text-center mb-8">
-      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 flex items-center justify-center gap-3 tracking-tight">
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white flex items-center justify-center gap-3 tracking-tight">
         <span>🚀</span> AI Prompt 智能寶庫
       </h1>
       
       <!-- 試算表連動按鈕區 -->
-      <div class="mt-3 flex items-center justify-center gap-3 flex-wrap text-sm">
-        <button onclick="toggleModal('sheetModal')" class="inline-flex items-center gap-1.5 text-slate-600 hover:text-blue-600 bg-white px-3.5 py-1.5 rounded-full shadow-sm border border-slate-200 transition-all hover:border-blue-400">
-          <i class="fa-solid fa-table text-emerald-600"></i>
+      <div class="mt-4 flex items-center justify-center gap-3 flex-wrap text-sm">
+        <button onclick="toggleModal('sheetModal')" class="inline-flex items-center gap-1.5 text-slate-200 hover:text-white bg-slate-900/90 hover:bg-slate-800 px-3.5 py-1.5 rounded-full shadow-sm border border-slate-700 transition-all hover:border-slate-500">
+          <i class="fa-solid fa-table text-emerald-400"></i>
           <span>檢視 / 匯出提示詞試算表</span>
         </button>
-        <button onclick="toggleModal('settingsModal')" class="inline-flex items-center gap-1.5 text-slate-600 hover:text-blue-600 bg-white px-3.5 py-1.5 rounded-full shadow-sm border border-slate-200 transition-all hover:border-blue-400">
-          <i class="fa-solid fa-cloud-arrow-down text-blue-500"></i>
+        <button onclick="toggleModal('settingsModal')" class="inline-flex items-center gap-1.5 text-slate-200 hover:text-white bg-slate-900/90 hover:bg-slate-800 px-3.5 py-1.5 rounded-full shadow-sm border border-slate-700 transition-all hover:border-slate-500">
+          <i class="fa-solid fa-cloud-arrow-down text-blue-400"></i>
           <span>串接自訂 Google 試算表 (CSV)</span>
         </button>
-        <button onclick="toggleModal('addModal')" class="inline-flex items-center gap-1.5 text-white bg-blue-600 hover:bg-blue-700 px-3.5 py-1.5 rounded-full shadow-sm transition-all">
+        <button onclick="toggleModal('addModal')" class="inline-flex items-center gap-1.5 text-white bg-blue-600 hover:bg-blue-500 px-3.5 py-1.5 rounded-full shadow-sm shadow-blue-600/30 transition-all">
           <i class="fa-solid fa-plus"></i>
           <span>新增提示詞</span>
         </button>
@@ -93,12 +93,12 @@
           id="searchInput" 
           placeholder="搜尋提示詞標題、內容、標籤..." 
           oninput="handleSearch(this.value)"
-          class="w-full pl-11 pr-10 py-3 bg-white rounded-full border border-slate-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base transition-all"
+          class="w-full pl-11 pr-10 py-3 bg-slate-900/90 text-slate-100 rounded-full border border-slate-700 shadow-inner placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base transition-all"
         >
         <button 
           id="clearSearchBtn" 
           onclick="clearSearch()" 
-          class="hidden absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1"
+          class="hidden absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white p-1"
         >
           <i class="fa-solid fa-xmark"></i>
         </button>
@@ -113,15 +113,15 @@
     </div>
 
     <!-- 群組區塊標題 & 數據統計連動 -->
-    <div class="flex items-center justify-between mb-5 px-1 border-b border-slate-200 pb-3">
+    <div class="flex items-center justify-between mb-5 px-1 border-b border-slate-800 pb-3">
       <div class="flex items-center gap-2">
         <span class="text-xl">🧠</span>
-        <h2 class="text-lg font-bold text-slate-800 tracking-wide">AI 協思</h2>
-        <span id="filteredCountBadge" class="ml-2 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-700">
+        <h2 class="text-lg font-bold text-white tracking-wide">AI 協思</h2>
+        <span id="filteredCountBadge" class="ml-2 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-950/70 text-blue-400 border border-blue-800">
           共 8 筆
         </span>
       </div>
-      <div class="text-xs text-slate-500">
+      <div class="text-xs text-slate-400">
         點擊「複製 Prompt」可直接於 ChatGPT 或各模型貼上
       </div>
     </div>
@@ -133,12 +133,12 @@
 
     <!-- 查無資料時顯示 -->
     <div id="noDataState" class="hidden text-center py-16">
-      <div class="w-16 h-16 mx-auto mb-4 bg-slate-200 rounded-full flex items-center justify-center text-slate-400 text-2xl">
+      <div class="w-16 h-16 mx-auto mb-4 bg-slate-800/80 rounded-full flex items-center justify-center text-slate-500 text-2xl border border-slate-700">
         <i class="fa-regular fa-folder-open"></i>
       </div>
-      <h3 class="text-base font-semibold text-slate-700">查無相符的提示詞</h3>
+      <h3 class="text-base font-semibold text-slate-300">查無相符的提示詞</h3>
       <p class="text-sm text-slate-500 mt-1">請嘗試變更搜尋關鍵字或選擇其他標籤。</p>
-      <button onclick="resetFilters()" class="mt-4 px-4 py-2 text-sm bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors">
+      <button onclick="resetFilters()" class="mt-4 px-4 py-2 text-sm bg-slate-800 hover:bg-slate-700 text-blue-400 rounded-lg transition-colors border border-slate-700">
         重設所有篩選
       </button>
     </div>
@@ -146,25 +146,25 @@
   </div>
 
   <!-- 頁尾 -->
-  <footer class="mt-auto border-t border-slate-200 py-6 bg-white/60 text-center text-xs text-slate-500">
+  <footer class="mt-auto border-t border-slate-800/80 py-6 bg-slate-900/60 text-center text-xs text-slate-400">
     AI Prompt 智能寶庫 &copy; 具備動態連動與即時複製功能
   </footer>
 
   <!-- ================= 互動模態框 (MODALS) ================= -->
 
   <!-- 1. 內建試算表檢視與匯出 Modal -->
-  <div id="sheetModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[85vh] flex flex-col overflow-hidden animate-fade-in">
-      <div class="p-5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+  <div id="sheetModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 text-slate-100 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[85vh] flex flex-col overflow-hidden border border-slate-800 animate-fade-in">
+      <div class="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-900/90">
         <div class="flex items-center gap-2">
-          <i class="fa-solid fa-file-excel text-emerald-600 text-xl"></i>
-          <h3 class="font-bold text-slate-800 text-lg">提示詞資料試算表 (即時連動)</h3>
+          <i class="fa-solid fa-file-excel text-emerald-400 text-xl"></i>
+          <h3 class="font-bold text-white text-lg">提示詞資料試算表 (即時連動)</h3>
         </div>
         <div class="flex items-center gap-2">
-          <button onclick="exportToCSV()" class="px-3 py-1.5 text-xs bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg flex items-center gap-1 shadow-sm">
+          <button onclick="exportToCSV()" class="px-3 py-1.5 text-xs bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg flex items-center gap-1 shadow-sm">
             <i class="fa-solid fa-download"></i> 匯出 CSV
           </button>
-          <button onclick="toggleModal('sheetModal')" class="text-slate-400 hover:text-slate-600 p-1">
+          <button onclick="toggleModal('sheetModal')" class="text-slate-400 hover:text-white p-1">
             <i class="fa-solid fa-xmark text-lg"></i>
           </button>
         </div>
@@ -172,7 +172,7 @@
       <div class="overflow-auto flex-grow p-4">
         <table class="w-full text-left text-xs border-collapse">
           <thead>
-            <tr class="bg-slate-100 text-slate-700 border-b border-slate-200">
+            <tr class="bg-slate-800/80 text-slate-300 border-b border-slate-700">
               <th class="p-2.5 font-semibold w-16">ID</th>
               <th class="p-2.5 font-semibold w-24">分類</th>
               <th class="p-2.5 font-semibold w-36">標題</th>
@@ -180,67 +180,67 @@
               <th class="p-2.5 font-semibold w-20 text-center">操作</th>
             </tr>
           </thead>
-          <tbody id="sheetTableBody" class="divide-y divide-slate-100 font-mono text-slate-600">
+          <tbody id="sheetTableBody" class="divide-y divide-slate-800/60 font-mono text-slate-300">
             <!-- 試算表項目由 JS 渲染 -->
           </tbody>
         </table>
       </div>
-      <div class="p-4 border-t border-slate-100 bg-slate-50 text-right text-xs text-slate-500">
+      <div class="p-4 border-t border-slate-800 bg-slate-950/60 text-right text-xs text-slate-400">
         此處數據與首頁卡片即時同步。在卡片中刪除或新增均會即刻連動更新。
       </div>
     </div>
   </div>
 
   <!-- 2. 新增提示詞 Modal -->
-  <div id="addModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 animate-fade-in">
-      <div class="flex items-center justify-between mb-4 border-b pb-3">
-        <h3 class="font-bold text-slate-800 text-lg">新增提示詞 (立即連動)</h3>
-        <button onclick="toggleModal('addModal')" class="text-slate-400 hover:text-slate-600">
+  <div id="addModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 text-slate-100 rounded-2xl shadow-2xl max-w-lg w-full p-6 border border-slate-800 animate-fade-in">
+      <div class="flex items-center justify-between mb-4 border-b border-slate-800 pb-3">
+        <h3 class="font-bold text-white text-lg">新增提示詞 (立即連動)</h3>
+        <button onclick="toggleModal('addModal')" class="text-slate-400 hover:text-white">
           <i class="fa-solid fa-xmark text-lg"></i>
         </button>
       </div>
       <form id="addPromptForm" onsubmit="handleAddPrompt(event)" class="space-y-4 text-sm">
         <div>
-          <label class="block font-medium text-slate-700 mb-1">標籤分類</label>
-          <input type="text" id="newCategory" required placeholder="例如：內容創作、筆記精煉、程式應用" class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+          <label class="block font-medium text-slate-300 mb-1">標籤分類</label>
+          <input type="text" id="newCategory" required placeholder="例如：內容創作、筆記精煉、程式應用" class="w-full p-2.5 bg-slate-950 border border-slate-700 text-white rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
         </div>
         <div>
-          <label class="block font-medium text-slate-700 mb-1">標題名稱</label>
-          <input type="text" id="newTitle" required placeholder="例如：社群爆款文案生成" class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+          <label class="block font-medium text-slate-300 mb-1">標題名稱</label>
+          <input type="text" id="newTitle" required placeholder="例如：社群爆款文案生成" class="w-full p-2.5 bg-slate-950 border border-slate-700 text-white rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
         </div>
         <div>
-          <label class="block font-medium text-slate-700 mb-1">Prompt 提示詞內文</label>
-          <textarea id="newContent" required rows="6" placeholder="請填寫提示詞指令..." class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none font-mono text-xs"></textarea>
+          <label class="block font-medium text-slate-300 mb-1">Prompt 提示詞內文</label>
+          <textarea id="newContent" required rows="6" placeholder="請填寫提示詞指令..." class="w-full p-2.5 bg-slate-950 border border-slate-700 text-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none font-mono text-xs"></textarea>
         </div>
         <div class="flex justify-end gap-2 pt-2">
-          <button type="button" onclick="toggleModal('addModal')" class="px-4 py-2 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200">取消</button>
-          <button type="submit" class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 font-medium shadow-sm">儲存並加入試算表</button>
+          <button type="button" onclick="toggleModal('addModal')" class="px-4 py-2 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700">取消</button>
+          <button type="submit" class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-500 font-medium shadow-sm">儲存並加入試算表</button>
         </div>
       </form>
     </div>
   </div>
 
   <!-- 3. Google Sheet 外部連動設定 Modal -->
-  <div id="settingsModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 animate-fade-in">
-      <div class="flex items-center justify-between mb-4 border-b pb-3">
-        <h3 class="font-bold text-slate-800 text-lg">串接 Google Sheet (發布為 CSV)</h3>
-        <button onclick="toggleModal('settingsModal')" class="text-slate-400 hover:text-slate-600">
+  <div id="settingsModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 text-slate-100 rounded-2xl shadow-2xl max-w-lg w-full p-6 border border-slate-800 animate-fade-in">
+      <div class="flex items-center justify-between mb-4 border-b border-slate-800 pb-3">
+        <h3 class="font-bold text-white text-lg">串接 Google Sheet (發布為 CSV)</h3>
+        <button onclick="toggleModal('settingsModal')" class="text-slate-400 hover:text-white">
           <i class="fa-solid fa-xmark text-lg"></i>
         </button>
       </div>
-      <div class="space-y-4 text-xs sm:text-sm text-slate-600">
+      <div class="space-y-4 text-xs sm:text-sm text-slate-300">
         <p>若希望與線上的 Google Sheet 實時連動：</p>
-        <ol class="list-decimal pl-5 space-y-1 text-slate-700">
+        <ol class="list-decimal pl-5 space-y-1 text-slate-400">
           <li>在 Google 試算表中點擊「檔案」&rarr;「共用」&rarr;「發布到網路」。</li>
-          <li>選擇格式為 <strong>逗號分隔值 (.csv)</strong> 並點擊發布。</li>
+          <li>選擇格式為 <strong class="text-slate-200">逗號分隔值 (.csv)</strong> 並點擊發布。</li>
           <li>將取得的 CSV 連結貼在下方：</li>
         </ol>
-        <input type="url" id="csvUrlInput" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv" class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-xs font-mono">
+        <input type="url" id="csvUrlInput" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv" class="w-full p-2.5 bg-slate-950 border border-slate-700 text-white rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-xs font-mono">
         <div class="flex justify-end gap-2 pt-2">
-          <button type="button" onclick="loadSampleData()" class="px-3 py-2 text-xs rounded-lg bg-amber-50 text-amber-700 hover:bg-amber-100">恢復圖片原始資料</button>
-          <button type="button" onclick="fetchCustomCSV()" class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 font-medium shadow-sm text-xs">同步載入 CSV</button>
+          <button type="button" onclick="loadSampleData()" class="px-3 py-2 text-xs rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 border border-slate-700">恢復圖片原始資料</button>
+          <button type="button" onclick="fetchCustomCSV()" class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-500 font-medium shadow-sm text-xs">同步載入 CSV</button>
         </div>
       </div>
     </div>
@@ -325,8 +325,8 @@
       container.innerHTML = ALL_CATEGORIES.map(cat => {
         const isActive = cat === selectedCategory;
         const activeClass = isActive 
-          ? "bg-blue-600 text-white shadow-md shadow-blue-500/20 font-medium" 
-          : "bg-white text-slate-600 hover:bg-slate-50 hover:text-slate-900 border border-slate-200";
+          ? "bg-blue-600 text-white shadow-md shadow-blue-500/20 font-medium border border-blue-500" 
+          : "bg-slate-900/90 text-slate-300 hover:bg-slate-800 hover:text-white border border-slate-800";
         return `
           <button 
             onclick="selectCategory('${cat}')"
@@ -398,25 +398,25 @@
 
       noData.classList.add('hidden');
       grid.innerHTML = filtered.map(item => `
-        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:shadow-lg transition-all duration-200 flex flex-col overflow-hidden group">
+        <div class="bg-slate-900 rounded-2xl border border-slate-800 shadow-[0_4px_20px_rgba(0,0,0,0.35)] hover:border-slate-700 hover:shadow-2xl transition-all duration-200 flex flex-col overflow-hidden group">
           <!-- 卡片頂部紫色細線 (如圖樣式) -->
-          <div class="h-1.5 w-full bg-gradient-to-r from-purple-500 to-indigo-500"></div>
+          <div class="h-1.5 w-full bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500"></div>
           
           <div class="p-5 flex flex-col flex-grow">
             <!-- 標籤 -->
             <div class="mb-2">
-              <span class="inline-block px-2.5 py-0.5 text-[11px] font-semibold text-blue-600 bg-blue-50 rounded-md">
+              <span class="inline-block px-2.5 py-0.5 text-[11px] font-semibold text-blue-400 bg-blue-950/70 border border-blue-900/80 rounded-md">
                 ${item.category}
               </span>
             </div>
 
             <!-- 標題 -->
-            <h3 class="text-base font-bold text-slate-800 mb-3 group-hover:text-blue-600 transition-colors">
+            <h3 class="text-base font-bold text-white mb-3 group-hover:text-blue-400 transition-colors">
               ${escapeHtml(item.title)}
             </h3>
 
-            <!-- 提示詞內文 (含灰色背景框與微滾動) -->
-            <div class="flex-grow bg-slate-50/80 border border-slate-100 rounded-xl p-3 text-xs text-slate-600 font-sans leading-relaxed whitespace-pre-wrap select-all overflow-y-auto max-h-48 mb-4">
+            <!-- 提示詞內文 (深色背景與微滾動) -->
+            <div class="flex-grow bg-slate-950/90 border border-slate-800/80 rounded-xl p-3 text-xs text-slate-300 font-sans leading-relaxed whitespace-pre-wrap select-all overflow-y-auto max-h-48 mb-4">
               ${escapeHtml(item.content)}
             </div>
 
@@ -424,7 +424,7 @@
             <div class="mt-auto pt-2">
               <button 
                 onclick="copyPrompt('${item.id}', this)"
-                class="w-full py-2.5 px-4 bg-blue-600 hover:bg-blue-700 active:scale-[0.99] text-white text-xs font-semibold rounded-xl shadow-md shadow-blue-500/20 transition-all flex items-center justify-center gap-2">
+                class="w-full py-2.5 px-4 bg-blue-600 hover:bg-blue-500 active:scale-[0.99] text-white text-xs font-semibold rounded-xl shadow-md shadow-blue-600/30 transition-all flex items-center justify-center gap-2">
                 <i class="fa-regular fa-clone"></i>
                 <span>複製 Prompt</span>
               </button>
@@ -438,15 +438,15 @@
     function renderSpreadsheet() {
       const tbody = document.getElementById('sheetTableBody');
       tbody.innerHTML = promptsData.map((item, index) => `
-        <tr class="hover:bg-slate-50 transition-colors">
-          <td class="p-2.5 font-mono text-slate-400">#${item.id}</td>
-          <td class="p-2.5 font-semibold text-blue-600">${escapeHtml(item.category)}</td>
-          <td class="p-2.5 font-bold text-slate-800">${escapeHtml(item.title)}</td>
-          <td class="p-2.5 text-slate-600 max-w-md truncate" title="${escapeHtml(item.content)}">
+        <tr class="hover:bg-slate-800/50 transition-colors">
+          <td class="p-2.5 font-mono text-slate-500">#${item.id}</td>
+          <td class="p-2.5 font-semibold text-blue-400">${escapeHtml(item.category)}</td>
+          <td class="p-2.5 font-bold text-white">${escapeHtml(item.title)}</td>
+          <td class="p-2.5 text-slate-300 max-w-md truncate" title="${escapeHtml(item.content)}">
             ${escapeHtml(item.content.replace(/\n/g, ' '))}
           </td>
           <td class="p-2.5 text-center">
-            <button onclick="deletePrompt(${item.id})" class="text-rose-500 hover:text-rose-700 p-1 text-xs" title="刪除">
+            <button onclick="deletePrompt(${item.id})" class="text-rose-400 hover:text-rose-300 p-1 text-xs" title="刪除">
               <i class="fa-regular fa-trash-can"></i>
             </button>
           </td>
